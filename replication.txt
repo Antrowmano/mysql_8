@@ -1,0 +1,140 @@
+					Master—-->slave
+
+
+Add configuration my.cnf 
+
+Enable binary log in master server
+#binary log
+log-bin=/home/mysql_8_2/error_binary.log
+
+Enable server_id in master and slave
+
+Add configuration my.cnf 
+
+#master
+server_id=1
+
+#slave
+Server_id =2
+
+Create user in master for slave db
+
+>create user "mano"@"localhost" identified by "mano";
+
+> grant replication slave on *.* to 'mano'@'localhost';
+
+			(or)
+
+>grant replication slave on *.* to 'mano'@'localhost' identified by "mano";
+
+Note:
+If the server's new we no need to take backup.
+If data is there in master we need to take backup and restore to the slave
+
+mysqldump
+
+>mysqldump  -u root -p -S /tmp/mysql8.sock --all-databases > all_databases3308.sql
+
+Restore
+
+ >mysql -u root -p –S /tmp/mysql8_2.sock  <all_databases3308.sql
+
+In master 
+
+Check binlog position
+>Show master status;
+mysql> show master status;
++---------------------+----------+--------------+------------------+-------------------+
+| File                | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
++---------------------+----------+--------------+------------------+-------------------+
+| error_binary.000003 |      888 |              |                  |                   |
++---------------------+----------+--------------+------------------+-------------------+
+1 row in set (0.00 sec)
+
+
+Enable replication on slave db for connect to the master
+
+
+>change master to
+master_host='127.0.0.1',master_user='mano',master_password='mano',master_port=3308,master_log_file='error_binary.000003',master_log_pos=888;
+
+
+Master_host —> master ip
+Master_user —>we create user before in master that username
+Master_password—--> that user password
+Master_port —---> master server post
+Master_log_file  —---->binary log file
+Master_log_pos —----> binary log position
+
+To start
+> start slave;
+
+To check status
+> show slave status;
+mysql> SHOW SLAVE STATUS\G
+*************************** 1. row ***************************
+               Slave_IO_State: Waiting for master to send event
+                  Master_Host: 127.0.0.1
+                  Master_User: mano
+                  Master_Port: 3308
+                Connect_Retry: 60
+              Master_Log_File: error_binary.000003
+          Read_Master_Log_Pos: 888
+               Relay_Log_File: c91fa5894ad9-relay-bin.000002
+                Relay_Log_Pos: 327
+        Relay_Master_Log_File: error_binary.000003
+             Slave_IO_Running: Yes
+            Slave_SQL_Running: Yes
+              Replicate_Do_DB:
+          Replicate_Ignore_DB:
+           Replicate_Do_Table:
+       Replicate_Ignore_Table:
+      Replicate_Wild_Do_Table:
+  Replicate_Wild_Ignore_Table:
+                   Last_Errno: 0
+                   Last_Error:
+                 Skip_Counter: 0
+          Exec_Master_Log_Pos: 888
+              Relay_Log_Space: 543
+              Until_Condition: None
+               Until_Log_File:
+                Until_Log_Pos: 0
+           Master_SSL_Allowed: No
+           Master_SSL_CA_File:
+           Master_SSL_CA_Path:
+              Master_SSL_Cert:
+            Master_SSL_Cipher:
+               Master_SSL_Key:
+        Seconds_Behind_Master: 0
+Master_SSL_Verify_Server_Cert: No
+                Last_IO_Errno: 0
+                Last_IO_Error:
+               Last_SQL_Errno: 0
+               Last_SQL_Error:
+  Replicate_Ignore_Server_Ids:
+             Master_Server_Id: 3
+                  Master_UUID: 83660670-9469-11ec-b789-0242ac110002
+             Master_Info_File: mysql.slave_master_info
+                    SQL_Delay: 0
+          SQL_Remaining_Delay: NULL
+      Slave_SQL_Running_State: Slave has read all relay log; waiting for more updates
+           Master_Retry_Count: 86400
+                  Master_Bind:
+      Last_IO_Error_Timestamp:
+     Last_SQL_Error_Timestamp:
+               Master_SSL_Crl:
+           Master_SSL_Crlpath:
+           Retrieved_Gtid_Set:
+            Executed_Gtid_Set:
+                Auto_Position: 0
+         Replicate_Rewrite_DB:
+                 Channel_Name:
+           Master_TLS_Version:
+       Master_public_key_path:
+        Get_master_public_key: 0
+            Network_Namespace:
+1 row in set, 1 warning (0.00 sec)
+
+
+To stop slave
+>stop slave

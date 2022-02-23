@@ -1,0 +1,126 @@
+					Ubuntu
+
+
+Download location
+> Wget https://downloads.mysql.com/archives/get/p/23/file/mysql-8.0.25-linux-glibc2.12-x86_64.tar.x
+
+Unzip:
+>tar -xvf mysql-8.0.25-linux-glibc2.12-x86_64.tar.xz
+
+Rename
+
+>mysql-8.0.25-linux-glibc2.12-x86_64 
+>mv mysql-8.0.25-linux-glibc2.12-x86_64 mysql_8
+
+Create data directory 
+inside the base dir
+
+> cd mysql_8
+>mkdir data_8
+
+Create configuration file 
+
+>touch my.cnf
+
+[mysqld]
+
+basedir=/home/mysql_8_2
+datadir=/home/mysql_8_2/data8.1
+port=3308
+server_id=3
+socket=/tmp/mysql8_2.sock
+
+Install mysql 8.0
+
+>./bin/mysqld --defaults-file=/home/mysql_8_2/my.cnf --initialize --user=root
+
+It has automatically generate one password
+
+Start mysql server
+
+>./bin/mysqld_safe --defaults-file=/home/mysql_8_2/my.cnf  --user=root &
+
+Login mysql server
+
+> ./bin/mysql -u root -p /tmp/mysql8_2.sock
+
+After login:
+
+Set password=’password’;
+To shutdown
+
+>./bin/mysqladmin -u root -p /tmp/mysql8_2.sock shutdown
+
+
+Add log
+
+Error log
+
+Add configuration file my.cnf
+
+log_error =/home/mysql_8_2/error_3308.log
+
+Start mysql server
+
+>./bin/mysqld_safe --defaults-file=/home/mysql_8_2/my.cnf  --user=root &
+
+Login mysql server:
+
+> ./bin/mysql -u root -p /tmp/mysql8_2.sock
+
+General_query log
+
+Add configuration file my.cnf
+
+general_log=on —----------enable general.log
+general_log=off —----------disable general.log
+general_log_file=/home/mysql_8_2/error_general.log
+
+
+Start mysql server
+
+>./bin/mysqld_safe --defaults-file=/home/mysql_8_2/my.cnf  --user=root &
+
+
+Login mysql server:
+
+> ./bin/mysql -u root -p /tmp/mysql8_2.sock
+
+
+Binary log
+
+Add configuration file my.cnf
+
+log-bin=/home/mysql_8_2/error_binary.log
+
+
+Start mysql server
+
+>./bin/mysqld_safe --defaults-file=/home/mysql_8_2/my.cnf  --user=root &
+
+
+Login mysql server:
+
+> ./bin/mysql -u root -p /tmp/mysql8_2.sock
+
+Slow query log
+
+Add configuration file my.cnf
+
+slow_query_log = 1
+slow-query_log_file=/home/mysql_8_2/error_slow.log
+long_query_time = 2
+
+
+
+Start mysql server
+
+>./bin/mysqld_safe --defaults-file=/home/mysql_8_2/my.cnf  --user=root &
+
+
+Login mysql server:
+
+> ./bin/mysql -u root -p /tmp/mysql8_2.sock
+
+
+
