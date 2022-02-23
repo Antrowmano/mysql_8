@@ -1,0 +1,4 @@
+a. localhost
+   CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+b. login from anywhere
+   CREATE USER 'newuser'@'%' IDENTIFIED BY 'password'; 

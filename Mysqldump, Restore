@@ -1,0 +1,6 @@
+Back Up using mysqldump
+  mysqldump -u root -p db_test > db_test.sql
+Restore
+  mysql -u root -p ANTROW < ANTROW.SQL 
+Backup row in table 
+  mysqldump -u root -p db_test db_team1 --where="name='ajith'" > first_row_dump.sql

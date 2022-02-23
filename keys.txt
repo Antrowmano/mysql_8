@@ -1,0 +1,44 @@
+1.primary key
+  Is not all duplicate values
+  when you create a table using "null" the primary key its should not be accept
+  it also using retrieve data from the database easy.
+#for creating:   
+CREATE TABLE `room` (
+  `ID` int(3) NOT NULL,
+  `FirstName` varchar(10) NOT NULL,
+  `LastName` varchar(10) DEFAULT NULL,
+  `Age` int(5) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+#for alter table;
+  ALTER TABLE "table name"
+  ADD PRIMARY KEY (ID);
+#for multipul column
+  ALTER TABLE "table name"
+  ADD CONSTRAINT PK_table name PRIMARY KEY (ID,LastName);
+#for drop:
+  ALTER TABLE "table name"
+  DROP PRIMARY KEY;
+2.unique key
+  it also same like primary key .unique also not allow duplicate values
+  but one different its allow null values also
+# for create table:
+  CREATE TABLE room1 (
+  ID int(3) DEFAULT NULL,
+  FirstName varchar(10) NOT NULL,
+  LastName varchar(10) DEFAULT NULL,
+  Age int(5) DEFAULT NULL,
+  UNIQUE KEY ID (ID);
+#for alter table:
+   ALTER TABLE "table name"
+   ADD UNIQUE (ID);
+#for multipul
+   ALTER TABLE "table name"
+   ADD CONSTRAINT UC_tablename UNIQUE (ID,LastName);
+#for drop unique constraint:
+   ALTER TABLE "table name"
+   DROP INDEX UC_table name;
+3.secondry key
+  if the primary key consider one column in table remaining should be secondry key
+4.foreign key
+  it is use for connecting one table to another table
+  

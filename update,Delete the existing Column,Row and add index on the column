@@ -1,0 +1,11 @@
+1. have one int, varchar and timestamp columns
+   CREATE TABLE db_team1 (id INT NOT NULL,name VARCHAR(20) NOT NULL,Addr CHAR(30),selary DECIMAL,time TIMESTAMP);
+2. update the existing column 
+   ALTER TABLE db_team1 ADD COLUMN (PRIMARY KEY (id));
+   ALTER TABLE db_team1 ADD COLUMN (phone INT  NOT NULL);
+3. update the existing row
+   UPDATE db_team1 SET phone= 8333 WHERE id= 1;
+4. delete the existing row
+   DELETE FROM db_team1 WHERE phone=8333;
+5. add index on the columns
+   CREATE UNIQUE INDEX index_1 ON db_team1 ( id, name, addr, selary,time,phone);

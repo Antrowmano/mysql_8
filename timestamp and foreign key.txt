@@ -1,0 +1,11 @@
+timestamp(created_at and updated_at)
+ 
+1.created_at:
+  create table members (id INT(10) NOT NULL AUTO_INCREMENT,name VARCHAR(15) NOT NULL,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY(id));
+2.update_at
+  ALTER TABLE members ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+ 
+Forgin key
+ >create table india(sl_no INT(3) NOT NULL AUTO_INCREMENT,State VARCHAR(10) NOT NULL,Fav VARCHAR(10) NOT NULL,PRIMARY KEY(sl_no));
+ >create table state(sl_no INT(3) NOT NULL,District VARCHAR(10) NOT NULL, Fav VARCHAR(20) NOT NULL, PRIMARY KEY(sl_no), FOREIGN KEY(sl_no) REFERENCES india(sl_no));
+ 

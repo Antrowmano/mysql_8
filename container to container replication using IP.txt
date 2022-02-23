@@ -1,0 +1,11 @@
+replication in container to container
+1.using this config
+  server-id               =400
+  relay-log               =mysql-relay-bin.log
+  log_bin                 = mysql-bin.log                                        
+2.one type of access client using ip and port
+  mysql -h 172.17.0.3 -u anish -P3307 -p
+3.using this query give grand replication 
+  grant replication slave on *.* to 'anish'@'172.17.0.3' identified by 'anish23';
+4.using this query change master 
+  change master to master_host='172.17.0.3', master_user='anish', master_password='anish23', master_port=3307, master_log_file='mysql-bin.000017' , master_log_pos=2102;

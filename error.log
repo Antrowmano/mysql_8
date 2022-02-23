@@ -1,0 +1,44 @@
+types of error logs
+1.error.log
+Fist we need to config the error.log
+  [mysqld]
+  log_error =/var/log/mysql_3307.log
+Then create the file on path=/var/log and change the permission using chown.
+Then restart using socket.
+  we can easly to sortout error.log by using
+  ps -ef | grep mysql 
+  less &tail /var/log/mysql_3307.log
+  less=it can be visible less data
+  tail=it able be give last data in error.log file
+  head=it able to give top of the error.log file
+  path=/var/log/mysql_3307.log
+  we can check mysql shutdown complete and check for mysql are working
+2.general_query.log
+Fist we need to config the general quer.log
+  [mysqld]
+  general_log=on
+  general_log_file=/var/log/mysql_3307_logerror.log
+Then create the file on path=/var/log and change the permission using chown.
+Then restart the mysql using socket
+  less &tail  /var/log/mysql_3307_logerror.log 
+  less=it can be visible less data
+  tail=it able be give last data in error.log file
+  path=/var/log/mysql_3307_logerror.log
+3.Binary log
+  fist we should be config /etc/mysql/my-3307.log
+  [mysqld]
+  log-bin=mysql-bin.log
+  server-id=1
+Then login mysql using socket and check following this query 
+  SHOW VARIABLES LIKE 'log_bin';
+  if log_bin=on it means enable correctly
+  if log_bin=off it means enable should not be correct
+4.show query log
+  first we need to config mysql using /etc/mysql/my-3307.log
+  [mysqld]
+  slow_query_log = 1
+  slow-query_log_file = /var/log/mysql-slow_3307.log
+  long_query_time = 2
+Then restart the mysql using socket 
+and check   /var/log/mysql-slow_3307.log
+  less  /var/log/mysql-slow_3307.log

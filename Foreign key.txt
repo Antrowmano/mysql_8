@@ -1,0 +1,52 @@
+1.parent table
+>CREATE TABLE `person` (
+  `personID` int(10) DEFAULT NULL,
+  `Firstname` varchar(10) NOT NULL,
+  `lastname` varchar(10) NOT NULL,
+  `age` int(5) DEFAULT NULL);
+2.child table
+>CREATE TABLE Orders (
+    OrderID INT(10) NOT NULL,
+    OrderNumber INT(10) NOT NULL,
+    PersonID INT(10),
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (personID) REFERENCES persons(personID));
+
+{PRIMARY KEY = UNIQUE KEY
+FOREIGN KEY = connection to ane table to another table}
+
+error:
+     I get this type error using foreign key.
+          ERROR 1215 (HY000): Cannot add foreign key constraint
+     then i able to sort out using this query.
+          >SET FOREIGN_KEY_CHECKS=0;
+     after using the query (child table) is working
+
+Using this query: 
+     >SHOW TABLES FROM INFORMATION_SCHEMA LIKE 'INNODB_SYS%';
+
+| INNODB_SYS_DATAFILES                       |
+| INNODB_SYS_TABLESTATS                      |
+| INNODB_SYS_FOREIGN                         |
+| INNODB_SYS_COLUMNS                         |
+| INNODB_SYS_INDEXES                         |
+| INNODB_SYS_FIELDS                          |
+| INNODB_SYS_TABLESPACES                     |
+| INNODB_SYS_FOREIGN_COLS                    |
+| INNODB_SYS_TABLES                          |
+
+Fllowing this query we check parent and child connection
+     >SELECT * FROM INFORMATION_SCHEMA.INNODB_SYS_FOREIGN \G
+         ID: test/Orders_ibfk_1
+FOR_NAME: test/Orders
+REF_NAME: test/persons
+  N_COLS: 1
+    TYPE: 0
+1 row in set (0.01 sec)
+     >SELECT * FROM INFORMATION_SCHEMA.INNODB_SYS_FOREIGN_COLS \G
+           ID: test/Orders_ibfk_1
+FOR_COL_NAME: PersonID
+REF_COL_NAME: personID
+         POS: 0
+1 row in set (0.00 sec)
+   

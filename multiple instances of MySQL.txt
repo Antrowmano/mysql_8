@@ -1,0 +1,47 @@
+1.create my.cnf
+  path=/etc/mysql/my-3307.cnf 
+  [mysqld]
+# Basic Settings
+user      = mysql
+pid-file  = /var/run/mysqld/mysql_3307.pid
+socket    = /var/run/mysqld/mysqld_3307.sock
+port      = 3307
+basedir = /var/lib/mysql_3307
+#datadir = /var/lib/mysql_3307
+basedir   = /usr
+datadir   = /var/lib/mysql_3307
+log_error =/var/log/mysql_3307.log
+#tmpdir    = /tmp
+2.create datadir
+  path=var/lib
+  mkdir mysql_3307
+3.create error.log
+  path=/var/log
+  touch mysql_3307.log
+4.give permission
+  chown mysql:mysql /var/log/mysql_3307.log
+  check=ls -ltrh
+5.initialize
+  mysqld --defaults-file=/etc/mysql/my-3309.cnf --initialize
+  check=ls -ltrh 
+6.check password
+  less /var/log/mysql_3309.log | grep pass
+7.start socket 
+   mysqld --defaults-file=/etc/mysql/my-3309.cnf &
+8.check socket
+  less /var/log/mysql_3307.log | grep socket
+9.start mysql
+  mysql -u root -p --socket=/var/run/mysqld/mysqld_3309.sock
+10.change password
+  >ALTER USER 'root'@'localhost' IDENTIFIED BY '';
+11.check port
+  >SELECT @@PORT;
+12.used to stop socket 
+  >shutdown;
+13.check how many port are running
+   ps -ef | grep mysql
+
+  
+
+
+

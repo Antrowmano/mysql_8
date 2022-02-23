@@ -1,0 +1,25 @@
+ACID properties:
+A= Atomicity
+C= Consistency
+I= Isolation
+D= Durability
+
+1.turn off commit
+  SET AUTOCOMMIT=false;
+          or
+  SET AUTOCOMMIT=0;
+2.turn on commit
+  SET AUTOCOMMIT=true;
+          or
+  SET AUTOCOMMIT=1;
+3.view autocommit status
+  select @@autocommit;
+4.after insert need to used commit
+  COMMIT;
+5.before commit need to used rollback
+  ROLLBACK;
+6.this "start transation" also used to turn off
+  START TRANSACTION;
+         OR
+  BEGIN WORK;
+

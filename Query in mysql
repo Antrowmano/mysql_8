@@ -1,0 +1,13 @@
+Update the existing column: 
+   ALTER TABLE db_team1 ADD COLUMN (PRIMARY KEY (id));
+   ALTER TABLE db_team1 ADD COLUMN (phone INT  NOT NULL);
+Update the existing row:
+   UPDATE db_team1 SET phone= 8333 WHERE id= 1;
+Delete the existing row:
+   DELETE FROM db_team1 WHERE phone=8333;
+Add index on the columns:
+   CREATE UNIQUE INDEX index_1 ON db_team1 ( id, name, addr, selary,time,phone);
+Easy to view and visible
+   show create table db_team1;
+Null ,not null and default
+  ALTER TABLE db_team1 MODIFY phone INT NULL DEFAULT 2000;
